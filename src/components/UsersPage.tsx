@@ -1,14 +1,13 @@
 import axios from "axios";
-import React, { FC, useEffect, useState } from "react";
-import { ITodo, iUser } from "../types/types";
-import Card, { CardVariant } from "./Card";
-import EventExample from "./EventExample";
+import { FC, useEffect, useState } from "react";
 import List from "./List";
-import TodoItem from "./TodoItem";
 import UserItem from "./UserItem";
+import { useHistory } from "react-router";
+import { iUser } from "../types/types";
 
-const UserPage: FC = () => {
+const UsersPage: FC = () => {
   const [users, setUsers] = useState<iUser[]>([]);
+  const history=useHistory();
 
   useEffect(() => {
     fetchUsers();
@@ -28,13 +27,12 @@ const UserPage: FC = () => {
 
   return (
     <div>
-      {/* <UserList users={users}/> */}
       <List
         items={users}
-        renderItem={(user: iUser) => <UserItem user={user} key={user.id} />}
+        renderItem={(user: iUser) => <UserItem onClick={(user)=>history.push('/users/'+user.id)} user={user} key={user.id} />}
       />
     </div>
   );
 };
 
-export default UserPage;
+export default UsersPage;
